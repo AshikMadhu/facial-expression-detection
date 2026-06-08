@@ -14,11 +14,11 @@ env/
 data/
 *.csv
 
-# Models (too large for git)
-models/
+# Models (tracked for cloud deployment)
+# models/
+# *.keras
+# *.tflite
 *.h5
-*.keras
-*.tflite
 
 # Logs & Dumps
 *.log
