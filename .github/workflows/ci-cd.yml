@@ -15,6 +15,11 @@ jobs:
     - name: Checkout Code Repository
       uses: actions/checkout@v4
 
+    - name: Install System Graphics Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgl1-mesa-glx libglib2.0-0 libsm6 libxext6 libxrender-dev
+
     - name: Set up Python Environment (3.11)
       uses: actions/setup-python@v5
       with:
