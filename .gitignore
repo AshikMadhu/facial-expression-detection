@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+
+# Local Python Runtime Distributions
+python311/
+
+# Virtual environments
+venv/
+venv311/
+env/
+
+# Data (NEVER commit datasets)
+data/
+*.csv
+
+# Models (too large for git)
+models/
+*.h5
+*.keras
+*.tflite
+
+# Logs & Dumps
+*.log
+log*.txt
+log.txt
+logs/
+checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TensorFlow / cache
+*.tmp
+.cache/
+
+# Streamlit
+.streamlit/

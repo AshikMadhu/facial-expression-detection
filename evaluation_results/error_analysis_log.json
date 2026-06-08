@@ -1,0 +1,702 @@
+[
+    {
+        "index": 2411,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.5222810506820679,
+        "true_confidence": 0.09733510762453079
+    },
+    {
+        "index": 3022,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.5121046304702759,
+        "true_confidence": 0.07523026317358017
+    },
+    {
+        "index": 3378,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.5104042887687683,
+        "true_confidence": 0.08640330284833908
+    },
+    {
+        "index": 2399,
+        "true_label": "Neutral",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.5061375498771667,
+        "true_confidence": 0.07839182019233704
+    },
+    {
+        "index": 207,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.5051952004432678,
+        "true_confidence": 0.18116815388202667
+    },
+    {
+        "index": 1594,
+        "true_label": "Angry",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.5049653649330139,
+        "true_confidence": 0.1026439517736435
+    },
+    {
+        "index": 3362,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.502755880355835,
+        "true_confidence": 0.06729986518621445
+    },
+    {
+        "index": 1701,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.5018002986907959,
+        "true_confidence": 0.10561878234148026
+    },
+    {
+        "index": 665,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.49974524974823,
+        "true_confidence": 0.09546490013599396
+    },
+    {
+        "index": 2771,
+        "true_label": "Angry",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4995916187763214,
+        "true_confidence": 0.11199899762868881
+    },
+    {
+        "index": 715,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.49945807456970215,
+        "true_confidence": 0.12817661464214325
+    },
+    {
+        "index": 1308,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4965096414089203,
+        "true_confidence": 0.07255785167217255
+    },
+    {
+        "index": 709,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4961916506290436,
+        "true_confidence": 0.06881280988454819
+    },
+    {
+        "index": 3404,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4943770170211792,
+        "true_confidence": 0.07368841767311096
+    },
+    {
+        "index": 391,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.49282383918762207,
+        "true_confidence": 0.1858310103416443
+    },
+    {
+        "index": 3160,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.49227002263069153,
+        "true_confidence": 0.08354580402374268
+    },
+    {
+        "index": 1938,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.49138355255126953,
+        "true_confidence": 0.0703517273068428
+    },
+    {
+        "index": 2274,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.49075770378112793,
+        "true_confidence": 0.0918816328048706
+    },
+    {
+        "index": 1673,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4900054931640625,
+        "true_confidence": 0.07125040888786316
+    },
+    {
+        "index": 283,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.48625829815864563,
+        "true_confidence": 0.14309367537498474
+    },
+    {
+        "index": 3323,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4858890473842621,
+        "true_confidence": 0.06413756310939789
+    },
+    {
+        "index": 1915,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.48480677604675293,
+        "true_confidence": 0.20121155679225922
+    },
+    {
+        "index": 1666,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.48465633392333984,
+        "true_confidence": 0.08902020752429962
+    },
+    {
+        "index": 513,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.47965458035469055,
+        "true_confidence": 0.0646682009100914
+    },
+    {
+        "index": 3198,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.47879597544670105,
+        "true_confidence": 0.08887757360935211
+    },
+    {
+        "index": 1940,
+        "true_label": "Angry",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4785996675491333,
+        "true_confidence": 0.12508215010166168
+    },
+    {
+        "index": 2581,
+        "true_label": "Angry",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4761214554309845,
+        "true_confidence": 0.0897853896021843
+    },
+    {
+        "index": 1785,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4756080210208893,
+        "true_confidence": 0.08261425048112869
+    },
+    {
+        "index": 3130,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.47458967566490173,
+        "true_confidence": 0.10599620640277863
+    },
+    {
+        "index": 2836,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4728815257549286,
+        "true_confidence": 0.07062384486198425
+    },
+    {
+        "index": 1269,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.47156408429145813,
+        "true_confidence": 0.18855850398540497
+    },
+    {
+        "index": 3346,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4707685112953186,
+        "true_confidence": 0.08307378739118576
+    },
+    {
+        "index": 3311,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4702067971229553,
+        "true_confidence": 0.06960032135248184
+    },
+    {
+        "index": 1028,
+        "true_label": "Happy",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.469495952129364,
+        "true_confidence": 0.06849047541618347
+    },
+    {
+        "index": 915,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4671657085418701,
+        "true_confidence": 0.10862600803375244
+    },
+    {
+        "index": 3277,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4670051336288452,
+        "true_confidence": 0.08945395797491074
+    },
+    {
+        "index": 3382,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4660191237926483,
+        "true_confidence": 0.08001242578029633
+    },
+    {
+        "index": 3439,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.463713675737381,
+        "true_confidence": 0.0923336073756218
+    },
+    {
+        "index": 206,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.46309342980384827,
+        "true_confidence": 0.07749196887016296
+    },
+    {
+        "index": 2143,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.46283119916915894,
+        "true_confidence": 0.07132259756326675
+    },
+    {
+        "index": 747,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.46265119314193726,
+        "true_confidence": 0.19551841914653778
+    },
+    {
+        "index": 2682,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4610752761363983,
+        "true_confidence": 0.16149480640888214
+    },
+    {
+        "index": 1090,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.46072813868522644,
+        "true_confidence": 0.07332248985767365
+    },
+    {
+        "index": 3059,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4599376618862152,
+        "true_confidence": 0.19753101468086243
+    },
+    {
+        "index": 10,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.45884862542152405,
+        "true_confidence": 0.13998767733573914
+    },
+    {
+        "index": 622,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.45778414607048035,
+        "true_confidence": 0.08760678768157959
+    },
+    {
+        "index": 272,
+        "true_label": "Happy",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.456655889749527,
+        "true_confidence": 0.0432971753180027
+    },
+    {
+        "index": 337,
+        "true_label": "Angry",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.45594364404678345,
+        "true_confidence": 0.0840701311826706
+    },
+    {
+        "index": 1971,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.45591306686401367,
+        "true_confidence": 0.13838301599025726
+    },
+    {
+        "index": 831,
+        "true_label": "Angry",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.453876256942749,
+        "true_confidence": 0.14372819662094116
+    },
+    {
+        "index": 2561,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4538486897945404,
+        "true_confidence": 0.21466214954853058
+    },
+    {
+        "index": 2891,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.45332521200180054,
+        "true_confidence": 0.12156801670789719
+    },
+    {
+        "index": 2469,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4527764916419983,
+        "true_confidence": 0.20683008432388306
+    },
+    {
+        "index": 2048,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.45256009697914124,
+        "true_confidence": 0.1346588432788849
+    },
+    {
+        "index": 2796,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.45136991143226624,
+        "true_confidence": 0.21178008615970612
+    },
+    {
+        "index": 2231,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4497814178466797,
+        "true_confidence": 0.15809482336044312
+    },
+    {
+        "index": 3053,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4489099681377411,
+        "true_confidence": 0.2243538349866867
+    },
+    {
+        "index": 2976,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.44838303327560425,
+        "true_confidence": 0.22546608746051788
+    },
+    {
+        "index": 642,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4464278221130371,
+        "true_confidence": 0.22462613880634308
+    },
+    {
+        "index": 1882,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4431174099445343,
+        "true_confidence": 0.19117069244384766
+    },
+    {
+        "index": 2648,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.44150060415267944,
+        "true_confidence": 0.09406791627407074
+    },
+    {
+        "index": 1346,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.44118598103523254,
+        "true_confidence": 0.10597308725118637
+    },
+    {
+        "index": 3528,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4411185085773468,
+        "true_confidence": 0.22007791697978973
+    },
+    {
+        "index": 2898,
+        "true_label": "Sad",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.43957003951072693,
+        "true_confidence": 0.07469245046377182
+    },
+    {
+        "index": 2511,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.43765515089035034,
+        "true_confidence": 0.08601918071508408
+    },
+    {
+        "index": 2788,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4304892420768738,
+        "true_confidence": 0.18084649741649628
+    },
+    {
+        "index": 351,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4262721836566925,
+        "true_confidence": 0.24051958322525024
+    },
+    {
+        "index": 1550,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.42482292652130127,
+        "true_confidence": 0.09791605174541473
+    },
+    {
+        "index": 3557,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4245745539665222,
+        "true_confidence": 0.10829216986894608
+    },
+    {
+        "index": 3563,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4210751950740814,
+        "true_confidence": 0.09623786807060242
+    },
+    {
+        "index": 2208,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4190983176231384,
+        "true_confidence": 0.22756411135196686
+    },
+    {
+        "index": 1764,
+        "true_label": "Neutral",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4145278334617615,
+        "true_confidence": 0.1182398796081543
+    },
+    {
+        "index": 561,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.41239598393440247,
+        "true_confidence": 0.11506745964288712
+    },
+    {
+        "index": 404,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4123236835002899,
+        "true_confidence": 0.1624601185321808
+    },
+    {
+        "index": 1515,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4113621115684509,
+        "true_confidence": 0.0863436907529831
+    },
+    {
+        "index": 1579,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4100767970085144,
+        "true_confidence": 0.10600504279136658
+    },
+    {
+        "index": 251,
+        "true_label": "Angry",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.40871718525886536,
+        "true_confidence": 0.15097635984420776
+    },
+    {
+        "index": 817,
+        "true_label": "Fear",
+        "predicted_label": "Disgust",
+        "pred_confidence": 0.40848833322525024,
+        "true_confidence": 0.1026541218161583
+    },
+    {
+        "index": 2428,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4079945981502533,
+        "true_confidence": 0.10310813784599304
+    },
+    {
+        "index": 1507,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.4078853726387024,
+        "true_confidence": 0.2338034212589264
+    },
+    {
+        "index": 1606,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.40375757217407227,
+        "true_confidence": 0.07545260339975357
+    },
+    {
+        "index": 490,
+        "true_label": "Neutral",
+        "predicted_label": "Disgust",
+        "pred_confidence": 0.401897668838501,
+        "true_confidence": 0.062751904129982
+    },
+    {
+        "index": 1707,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.40119266510009766,
+        "true_confidence": 0.20662634074687958
+    },
+    {
+        "index": 3438,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.4008329212665558,
+        "true_confidence": 0.19931741058826447
+    },
+    {
+        "index": 916,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.39766138792037964,
+        "true_confidence": 0.07381293922662735
+    },
+    {
+        "index": 3436,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.3974018096923828,
+        "true_confidence": 0.10548426955938339
+    },
+    {
+        "index": 2579,
+        "true_label": "Fear",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.3947330713272095,
+        "true_confidence": 0.09520173817873001
+    },
+    {
+        "index": 1183,
+        "true_label": "Disgust",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.3928597867488861,
+        "true_confidence": 0.1043751910328865
+    },
+    {
+        "index": 1937,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.3925277292728424,
+        "true_confidence": 0.19808724522590637
+    },
+    {
+        "index": 195,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.39090636372566223,
+        "true_confidence": 0.1747719794511795
+    },
+    {
+        "index": 2754,
+        "true_label": "Sad",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.3906722366809845,
+        "true_confidence": 0.07571666687726974
+    },
+    {
+        "index": 3392,
+        "true_label": "Fear",
+        "predicted_label": "Disgust",
+        "pred_confidence": 0.3898829221725464,
+        "true_confidence": 0.10535765439271927
+    },
+    {
+        "index": 1831,
+        "true_label": "Happy",
+        "predicted_label": "Disgust",
+        "pred_confidence": 0.388136088848114,
+        "true_confidence": 0.0721123218536377
+    },
+    {
+        "index": 2045,
+        "true_label": "Neutral",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.3874695897102356,
+        "true_confidence": 0.18853890895843506
+    },
+    {
+        "index": 3369,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.38663551211357117,
+        "true_confidence": 0.19867269694805145
+    },
+    {
+        "index": 2658,
+        "true_label": "Surprise",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.3858513832092285,
+        "true_confidence": 0.18158058822155
+    },
+    {
+        "index": 3582,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.3851751685142517,
+        "true_confidence": 0.22744612395763397
+    },
+    {
+        "index": 2627,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.3849635720252991,
+        "true_confidence": 0.2445371299982071
+    },
+    {
+        "index": 1271,
+        "true_label": "Fear",
+        "predicted_label": "Surprise",
+        "pred_confidence": 0.38417088985443115,
+        "true_confidence": 0.2391335815191269
+    },
+    {
+        "index": 629,
+        "true_label": "Sad",
+        "predicted_label": "Happy",
+        "pred_confidence": 0.3840602934360504,
+        "true_confidence": 0.09007047116756439
+    }
+]
