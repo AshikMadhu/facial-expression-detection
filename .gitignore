@@ -14,11 +14,11 @@ env/
 data/
 *.csv
 
-# Models (tracked for cloud deployment)
-# models/
-# *.keras
-# *.tflite
+# Models
 *.h5
+
+# Evaluation results
+evaluation_results/
 
 # Logs & Dumps
 *.log
