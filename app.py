@@ -1,14 +1,21 @@
+import sys
+import os
+
+# Append src/ to the system search path to resolve cross-imports within the src directory
+src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "src"))
+if src_dir not in sys.path:
+    sys.path.insert(0, src_dir)
+
 import time
 import json
-import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-from src.config import TrainingConfig
-from src.inference import EmotionInferenceEngine
-from src.analytics import EmotionAnalyticsEngine
-from src.webrtc_app import render_webrtc_view
+from config import TrainingConfig
+from inference import EmotionInferenceEngine
+from analytics import EmotionAnalyticsEngine
+from webrtc_app import render_webrtc_view
 
 # Setup page layout configurations
 st.set_page_config(
