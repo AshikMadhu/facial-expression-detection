@@ -32,7 +32,7 @@ def launch_module(module_name: str):
 
 def launch_dashboard():
     """Launches the Streamlit dashboard as a subprocess to prevent lifecycle conflicts."""
-    dashboard_path = os.path.join(src_dir, "dashboard.py")
+    dashboard_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "app.py"))
     if not os.path.exists(dashboard_path):
         print(f"[Launcher] Error: Dashboard script not found at {dashboard_path}", file=sys.stderr)
         sys.exit(1)
