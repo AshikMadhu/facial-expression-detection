@@ -63,6 +63,9 @@ class EmotionInferenceEngine:
         logger.info(f"Initializing model load from: {self.model_path}...")
         start_time = time.perf_counter()
         
+        # Force channels_last for standard inference layout compatibility
+        tf.keras.backend.set_image_data_format('channels_last')
+        
         # Load with compile=False to avoid dependency on Custom Loss/Optimizer during inference
         model = tf.keras.models.load_model(self.model_path, compile=False)
         

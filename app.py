@@ -9,6 +9,14 @@ if src_dir not in sys.path:
 import time
 import json
 import streamlit as st
+
+# Monkey-patch experimental_rerun for newer Streamlit compatibility (1.58.0+)
+if not hasattr(st, "experimental_rerun"):
+    st.experimental_rerun = st.rerun
+
+import tensorflow as tf
+tf.keras.backend.set_image_data_format('channels_last')
+
 import pandas as pd
 import plotly.express as px
 
