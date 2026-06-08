@@ -3,7 +3,7 @@ import numpy as np
 
 # Resolve path mappings
 src_dir = os.path.dirname(os.path.abspath(__file__))
-data_dir = os.path.abspath(os.path.join(src_dir, "..", "..", "..", "data"))
+data_dir = os.path.abspath(os.path.join(src_dir, "..", "data"))
 os.makedirs(data_dir, exist_ok=True)
 csv_path = os.path.join(data_dir, "fer2013.csv")
 
