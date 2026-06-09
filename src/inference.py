@@ -1,7 +1,7 @@
-import os
 import time
 import logging
 from typing import Dict, Tuple, Union, List
+from pathlib import Path
 import numpy as np
 import tensorflow as tf
 from PIL import Image
@@ -19,10 +19,17 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(na
 class EmotionInferenceEngine:
     """Reusable Inference Engine for real-time and batch facial emotion classification."""
 
-    def __init__(self, model_path: str = None, config: TrainingConfig = None):
+    def __init__(self, model_path: Union[str, Path] = None, config: TrainingConfig = None):
         self.config = config or TrainingConfig()
-        self.model_path = model_path or self.config.saved_model_path
+        self.model_path = Path(model_path or self.config.saved_model_path)
         
+        # Log hardware capabilities
+        gpus = tf.config.list_physical_devices('GPU')
+        if gpus:
+            logger.info(f"TensorFlow GPU acceleration detected. Running on: {len(gpus)} GPU(s)")
+        else:
+            logger.info("TensorFlow GPU acceleration not detected. Running on CPU mode.")
+            
         # Load label definitions
         self.labels = [self.config.emotion_labels[i] for i in sorted(self.config.emotion_labels.keys())]
         
@@ -30,13 +37,16 @@ class EmotionInferenceEngine:
         self.model = self._load_model()
         
         # Initialize MediaPipe Tasks Face Detector using the TFLite model asset
-        model_file_path = os.path.join(self.config.project_root, 'models', 'blaze_face_short_range.tflite')
-        if not os.path.exists(model_file_path):
+        model_file_path = Path(self.config.project_root) / 'models' / 'blaze_face_short_range.tflite'
+        if not model_file_path.exists():
             # Fallback path just in case
-            model_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'models', 'blaze_face_short_range.tflite')
+            model_file_path = Path(__file__).resolve().parent.parent / 'models' / 'blaze_face_short_range.tflite'
+            
+        if not model_file_path.exists():
+            raise FileNotFoundError(f"MediaPipe Face Detector model file not found at: {model_file_path}")
             
         logger.info(f"Initializing MediaPipe Face Detector from: {model_file_path}...")
-        base_options = python.BaseOptions(model_asset_path=model_file_path)
+        base_options = python.BaseOptions(model_asset_path=str(model_file_path))
         options = vision.FaceDetectorOptions(base_options=base_options)
         self.face_detector = vision.FaceDetector.create_from_options(options)
         
@@ -54,11 +64,17 @@ class EmotionInferenceEngine:
 
     def _load_model(self) -> tf.keras.Model:
         """Loads the saved Keras model checkpoint."""
-        if not os.path.exists(self.model_path):
-            raise FileNotFoundError(
-                f"Trained model checkpoint not found at: {self.model_path}. "
-                "Ensure you run 'python packages/ml-models/run.py train' to train the model first."
+        if not self.model_path.exists():
+            error_msg = (
+                f"\n[Model Load Error] Trained model file NOT found at: {self.model_path.resolve()}\n"
+                "========================================================================\n"
+                "To resolve this, please choose one of these options:\n"
+                "  1. Run training to generate a new model: python run.py train\n"
+                "  2. Download or copy 'best_model.h5' and place it inside the 'models/' folder.\n"
+                "========================================================================\n"
             )
+            logger.error(error_msg)
+            raise FileNotFoundError(f"Model file missing: {self.model_path}")
             
         logger.info(f"Initializing model load from: {self.model_path}...")
         start_time = time.perf_counter()
@@ -67,7 +83,7 @@ class EmotionInferenceEngine:
         tf.keras.backend.set_image_data_format('channels_last')
         
         # Load with compile=False to avoid dependency on Custom Loss/Optimizer during inference
-        model = tf.keras.models.load_model(self.model_path, compile=False)
+        model = tf.keras.models.load_model(str(self.model_path), compile=False)
         
         elapsed = (time.perf_counter() - start_time) * 1000.0
         logger.info(f"Model successfully loaded in {elapsed:.2f} ms.")

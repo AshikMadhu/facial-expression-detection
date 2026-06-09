@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 import logging
 import json
 import numpy as np
@@ -21,18 +21,18 @@ class FER2013Evaluator:
 
     def __init__(self, config: TrainingConfig, output_dir: str = None):
         self.config = config
-        self.output_dir = output_dir or os.path.join(config.project_root, "evaluation_results")
-        os.makedirs(self.output_dir, exist_ok=True)
+        self.output_dir = Path(output_dir or self.config.project_root / "evaluation_results")
+        self.output_dir.mkdir(parents=True, exist_ok=True)
         
         # Load label mapping from config
         self.labels = [config.emotion_labels[i] for i in sorted(config.emotion_labels.keys())]
 
     def load_model(self) -> tf.keras.Model:
         """Loads the saved Keras model."""
-        if not os.path.exists(self.config.saved_model_path):
+        if not self.config.saved_model_path.exists():
             raise FileNotFoundError(f"Trained model not found at path: {self.config.saved_model_path}")
         logger.info(f"Loading trained model from {self.config.saved_model_path}...")
-        return tf.keras.models.load_model(self.config.saved_model_path, compile=False)
+        return tf.keras.models.load_model(str(self.config.saved_model_path), compile=False)
 
     def extract_ground_truth_and_predictions(self, model: tf.keras.Model, test_ds: tf.data.Dataset) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """Runs batch predictions to extract inputs, true labels, predicted classes, and probabilities."""
@@ -92,8 +92,8 @@ class FER2013Evaluator:
         )
         
         # Save text report to file
-        report_path = os.path.join(self.output_dir, "classification_report.txt")
-        with open(report_path, "w") as f:
+        report_path = self.output_dir / "classification_report.txt"
+        with report_path.open("w") as f:
             f.write("=== EMOTIONSENSE AI: CLASSIFICATION REPORT ===\n\n")
             f.write(clf_text)
         logger.info(f"Saved text report to: {report_path}")
@@ -150,8 +150,8 @@ class FER2013Evaluator:
             log_item.pop("image")  # Remove raw pixels
             json_log.append(log_item)
             
-        log_path = os.path.join(self.output_dir, "error_analysis_log.json")
-        with open(log_path, "w") as f:
+        log_path = self.output_dir / "error_analysis_log.json"
+        with log_path.open("w") as f:
             json.dump(json_log, f, indent=4)
         logger.info(f"Saved top 100 error logs to: {log_path}")
         
@@ -284,8 +284,8 @@ class FER2013Evaluator:
             ax_errors.text(0.5, 0.5, "No classification errors detected.", fontsize=14, ha='center')
 
         # Save dashboard image file
-        dashboard_path = os.path.join(self.output_dir, "evaluation_dashboard.png")
-        plt.savefig(dashboard_path, dpi=150, bbox_inches='tight')
+        dashboard_path = self.output_dir / "evaluation_dashboard.png"
+        plt.savefig(str(dashboard_path), dpi=150, bbox_inches='tight')
         plt.close()
         logger.info(f"Saved visualization dashboard to: {dashboard_path}")
 

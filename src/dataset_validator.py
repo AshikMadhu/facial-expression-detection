@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 import sys
 import logging
 from typing import Dict
@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 
 # Adjust sys.path to find sibling configs
-sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+sys.path.append(str(Path(__file__).resolve().parent))
 from config import TrainingConfig
 
 # Configure logger
@@ -45,14 +45,15 @@ class FER2013DatasetValidator:
         }
         
         # 1. Check File Existence
-        if not os.path.exists(self.csv_path):
-            logger.error(f"Dataset file NOT found at: {self.csv_path}")
-            report_data["details"]["file_error"] = f"File missing at path: {self.csv_path}"
+        csv_path = Path(self.csv_path)
+        if not csv_path.exists():
+            logger.error(f"Dataset file NOT found at: {csv_path}")
+            report_data["details"]["file_error"] = f"File missing at path: {csv_path}"
             self._save_report(report_data, False)
             return False
             
         report_data["file_exists"] = True
-        logger.info(f"Verified dataset file exists at: {self.csv_path}")
+        logger.info(f"Verified dataset file exists at: {csv_path}")
         
         # 2. Load DataFrame
         try:
@@ -158,9 +159,10 @@ class FER2013DatasetValidator:
 
     def _save_report(self, report: Dict, is_ready: bool):
         """Saves a detailed markdown report inside the output folder."""
-        output_dir = os.path.join(os.path.dirname(self.csv_path), "reports")
-        os.makedirs(output_dir, exist_ok=True)
-        report_path = os.path.join(output_dir, "dataset_readiness_report.md")
+        csv_path = Path(self.csv_path)
+        output_dir = csv_path.parent / "reports"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        report_path = output_dir / "dataset_readiness_report.md"
         
         status_badge = "✅ READY" if is_ready else "❌ NOT READY"
         

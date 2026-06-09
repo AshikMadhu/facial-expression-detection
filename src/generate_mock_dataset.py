@@ -1,11 +1,10 @@
-import os
+from pathlib import Path
 import numpy as np
 
 # Resolve path mappings
-src_dir = os.path.dirname(os.path.abspath(__file__))
-data_dir = os.path.abspath(os.path.join(src_dir, "..", "data"))
-os.makedirs(data_dir, exist_ok=True)
-csv_path = os.path.join(data_dir, "fer2013.csv")
+data_dir = Path(__file__).resolve().parent.parent / "data"
+data_dir.mkdir(parents=True, exist_ok=True)
+csv_path = data_dir / "fer2013.csv"
 
 print(f"Generating mock FER2013 dataset in: {csv_path}...")
 

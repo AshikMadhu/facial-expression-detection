@@ -1,5 +1,4 @@
-import os
-import glob
+from pathlib import Path
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -7,7 +6,7 @@ import seaborn as sns
 def extract_metric(event_file, tag):
     values = []
     try:
-        for event in tf.compat.v1.train.summary_iterator(event_file):
+        for event in tf.compat.v1.train.summary_iterator(str(event_file)):
             if event.summary:
                 for val in event.summary.value:
                     if val.tag == tag:
@@ -18,14 +17,17 @@ def extract_metric(event_file, tag):
     return values
 
 def get_combined_metric(log_base, phase_dirs, sub_dir, tag):
+    log_base = Path(log_base)
     combined = []
     for p_dir in phase_dirs:
-        path = os.path.join(log_base, p_dir, sub_dir)
-        event_files = glob.glob(os.path.join(path, "events.out.tfevents.*"))
+        path = log_base / p_dir / sub_dir
+        if not path.exists():
+            continue
+        event_files = list(path.glob("events.out.tfevents.*"))
         if not event_files:
             continue
         # Sort by modification time to get the latest run
-        event_files.sort(key=os.path.getmtime)
+        event_files.sort(key=lambda f: f.stat().st_mtime)
         # Extract metrics from the event files of this phase
         phase_vals = []
         for ef in event_files:
@@ -37,7 +39,8 @@ def get_combined_metric(log_base, phase_dirs, sub_dir, tag):
 
 def main():
     sns.set_theme(style="darkgrid")
-    log_base = "packages/ml-models/logs"
+    project_root = Path(__file__).resolve().parent.parent
+    log_base = project_root / "logs"
     phase_dirs = ["phase1_extraction", "phase2_finetuning"]
     
     # Extract training and validation loss
@@ -74,10 +77,10 @@ def main():
     plt.ylabel('Categorical Crossentropy Loss', fontsize=12)
     plt.legend(frameon=True)
     
-    output_dir = "evaluation_results"
-    os.makedirs(output_dir, exist_ok=True)
-    loss_path = os.path.join(output_dir, "loss_curves.png")
-    plt.savefig(loss_path, dpi=150, bbox_inches='tight')
+    output_dir = project_root / "evaluation_results"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    loss_path = output_dir / "loss_curves.png"
+    plt.savefig(str(loss_path), dpi=150, bbox_inches='tight')
     plt.close()
     print(f"Saved loss curves to: {loss_path}")
     
@@ -94,8 +97,8 @@ def main():
     plt.ylim(0, 1.05)
     plt.legend(frameon=True)
     
-    acc_path = os.path.join(output_dir, "accuracy_curves.png")
-    plt.savefig(acc_path, dpi=150, bbox_inches='tight')
+    acc_path = output_dir / "accuracy_curves.png"
+    plt.savefig(str(acc_path), dpi=150, bbox_inches='tight')
     plt.close()
     print(f"Saved accuracy curves to: {acc_path}")
 

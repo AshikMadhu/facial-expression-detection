@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 import logging
 import tensorflow as tf
 from tensorflow.keras import callbacks, optimizers, losses, mixed_precision
@@ -110,7 +110,7 @@ def run_training_pipeline(config: TrainingConfig):
     )
     
     tensorboard_p1 = callbacks.TensorBoard(
-        log_dir=os.path.join(config.log_dir, "phase1_extraction"),
+        log_dir=str(config.log_dir / "phase1_extraction"),
         update_freq="epoch"
     )
     
@@ -167,7 +167,7 @@ def run_training_pipeline(config: TrainingConfig):
     
     # Checkpoint both weights and full model to saved_model_path when val_loss improves
     checkpoint_p2 = callbacks.ModelCheckpoint(
-        filepath=config.saved_model_path,
+        filepath=str(config.saved_model_path),
         monitor="val_loss",
         save_best_only=True,
         save_weights_only=False,
@@ -176,7 +176,7 @@ def run_training_pipeline(config: TrainingConfig):
     )
     
     tensorboard_p2 = callbacks.TensorBoard(
-        log_dir=os.path.join(config.log_dir, "phase2_finetuning"),
+        log_dir=str(config.log_dir / "phase2_finetuning"),
         update_freq="epoch",
         histogram_freq=1
     )
@@ -195,11 +195,11 @@ def run_training_pipeline(config: TrainingConfig):
     # 4. Final Evaluation on isolated test set
     logger.info("Executing final evaluation on test partition...")
     # Load the best checkpoint before evaluating on test set, to guarantee we evaluate the best epoch
-    if os.path.exists(config.saved_model_path):
+    if config.saved_model_path.exists():
         logger.info("Loading best model from checkpoint for evaluation and final save...")
         # Since we load to evaluate, we can load with CategoricalFocalLoss custom object
         model = tf.keras.models.load_model(
-            config.saved_model_path,
+            str(config.saved_model_path),
             custom_objects={"CategoricalFocalLoss": CategoricalFocalLoss}
         )
     test_loss, test_acc = model.evaluate(test_ds, verbose=0)
@@ -207,7 +207,7 @@ def run_training_pipeline(config: TrainingConfig):
 
     # 5. Save final fine-tuned model (this is redundant since ModelCheckpoint saves it, but ensures we write the restored best weights)
     logger.info(f"Saving final fine-tuned EfficientNetV2 model to: {config.saved_model_path}")
-    model.save(config.saved_model_path)
+    model.save(str(config.saved_model_path))
     logger.info("Training pipeline complete.")
 
 def main():

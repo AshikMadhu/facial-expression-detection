@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 import unittest
 import json
 import time
@@ -43,11 +43,41 @@ except ModuleNotFoundError:
     
     import tensorflow as tf
 
+# Check cv2 availability and inject mocks if missing
+try:
+    import cv2
+except ModuleNotFoundError:
+    import sys
+    from unittest.mock import MagicMock
+    mock_cv2 = MagicMock()
+    mock_cv2.getTextSize.return_value = ((50, 15), 5)
+    mock_cv2.COLOR_BGR2RGB = 4
+    mock_cv2.COLOR_BGR2GRAY = 6
+    mock_cv2.INTER_CUBIC = 2
+    mock_cv2.BORDER_REPLICATE = 1
+    sys.modules['cv2'] = mock_cv2
+    import cv2
+
+# Check mediapipe availability and inject mocks if missing
+try:
+    import mediapipe as mp
+except ModuleNotFoundError:
+    import sys
+    from unittest.mock import MagicMock
+    mock_mp = MagicMock()
+    mock_mp.ImageFormat = MagicMock()
+    mock_mp.ImageFormat.SRGB = 1
+    sys.modules['mediapipe'] = mock_mp
+    sys.modules['mediapipe.tasks'] = mock_mp.tasks
+    sys.modules['mediapipe.tasks.python'] = mock_mp.tasks.python
+    sys.modules['mediapipe.tasks.python.vision'] = mock_mp.tasks.python.vision
+    import mediapipe as mp
+
 from PIL import Image
 
 # Modify search path to import sibling files
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
+sys.path.append(str(Path(__file__).resolve().parent.parent / "src"))
 
 from config import TrainingConfig
 from fer2013_pipeline import PipelineConfig, DataValidator, DatasetLoader, ImbalanceHandler
@@ -151,8 +181,8 @@ class TestIntegrationFlows(unittest.TestCase):
 
     def setUp(self):
         self.config = TrainingConfig()
-        self.config.csv_path = "tests/test_mock_fer2013.csv"
-        os.makedirs(os.path.dirname(self.config.csv_path), exist_ok=True)
+        self.config.csv_path = Path("tests/test_mock_fer2013.csv")
+        self.config.csv_path.parent.mkdir(parents=True, exist_ok=True)
         
         # 1. Create a dummy test mock CSV file representation of FER2013
         # Contains 1 row per emotion class (7 classes)
@@ -162,22 +192,22 @@ class TestIntegrationFlows(unittest.TestCase):
             "pixels": [dummy_pixels] * 7,
             "Usage": ["Training", "Training", "PublicTest", "PublicTest", "PrivateTest", "PrivateTest", "Training"]
         }
-        pd.DataFrame(data).to_csv(self.config.csv_path, index=False)
+        pd.DataFrame(data).to_csv(str(self.config.csv_path), index=False)
         
         # Create directories for results
-        self.test_output_json = "tests/test_session_report.json"
+        self.test_output_json = Path("tests/test_session_report.json")
 
     def tearDown(self):
         # Cleanup temporary files
-        if os.path.exists(self.config.csv_path):
-            os.remove(self.config.csv_path)
-        if os.path.exists(self.test_output_json):
-            os.remove(self.test_output_json)
+        if self.config.csv_path.exists():
+            self.config.csv_path.unlink()
+        if self.test_output_json.exists():
+            self.test_output_json.unlink()
 
     def test_end_to_end_analytics_pipeline(self):
         """Simulates full workflow: load raw mock file, run mock inference, compute scores, write report."""
         # 1. Load data
-        pipeline_config = PipelineConfig(csv_path=self.config.csv_path, batch_size=2)
+        pipeline_config = PipelineConfig(csv_path=str(self.config.csv_path), batch_size=2)
         loader = DatasetLoader(pipeline_config)
         df = loader.load_raw_dataframe()
         self.assertEqual(len(df), 7)
@@ -201,11 +231,11 @@ class TestIntegrationFlows(unittest.TestCase):
         self.assertTrue(report["average_engagement"] > 0.5)
         
         # 4. Serialize report to file
-        analytics.export_report_to_json(self.test_output_json)
-        self.assertTrue(os.path.exists(self.test_output_json))
+        analytics.export_report_to_json(str(self.test_output_json))
+        self.assertTrue(self.test_output_json.exists())
         
         # Read back and verify
-        with open(self.test_output_json, "r") as f:
+        with self.test_output_json.open("r") as f:
             saved_data = json.load(f)
             self.assertEqual(saved_data["aggregated_statistics"]["dominant_emotion"], "Happy")
 
@@ -253,7 +283,7 @@ class TestPerformanceBenchmarks(unittest.TestCase):
         # Using dummy check because full TF model load might not run without active weights file.
         # This test ensures we track performance budgets.
         config = TrainingConfig()
-        if os.path.exists(config.saved_model_path):
+        if config.saved_model_path.exists():
             engine = EmotionInferenceEngine(config=config)
             dummy_image = np.random.randint(0, 255, (100, 100), dtype=np.uint8)
             

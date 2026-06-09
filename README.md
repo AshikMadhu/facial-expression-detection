@@ -1,86 +1,99 @@
 # EmotionSense AI: Real-Time Human Emotion Recognition & Engagement Analytics Platform
 
-EmotionSense AI is an industry-grade, real-time emotion recognition and engagement analytics platform. It leverages a hybrid edge-cloud architecture where computer vision operations (face detection and emotion classification) run locally on the client's device (edge) via WebAssembly and ONNX Runtime to guarantee absolute privacy, low latency, and zero server GPU costs. Telemetry and aggregated analytics are summarized on a premium dark-themed Streamlit dashboard.
+EmotionSense AI is an industry-grade, real-time emotion recognition and engagement analytics platform. It leverages a local computer vision pipeline where face detection and emotion classification run completely locally on the client's machine (CPU/GPU) to guarantee absolute privacy, low latency, and ease of deployment.
 
 ---
 
-## 📂 Repository Structure
-
-The workspace follows a clean, modular monorepo layout:
+## 📂 Project Directory Structure
 
 ```
 emotion/
-├── packages/
-│   └── ml-models/                      # Core Machine Learning & Logic Package
-│       ├── requirements.txt            # Python dependencies lists
-│       ├── src/                        # Source files
-│       │   ├── config.py               # Central Training & Path Configurations
-│       │   ├── fer2013_pipeline.py     # Data Pipeline: cleaning, validation, TF.data streams
-│       │   ├── model.py                # Model: MobileNetV2 Transfer & Fine-tuning blocks
-│       │   ├── train.py                # Trainer: Two-stage compile and fit callback triggers
-│       │   ├── evaluate.py             # Evaluator: Conf-matrix, error logs, metrics dashboard
-│       │   ├── inference.py            # Inference: Preprocessing and prediction API
-│       │   ├── analytics.py            # Analytics: Gaze tracking, head pose, valence & engagement score
-│       │   └── dashboard.py            # Streamlit UI: Interactive live charts & webcam logs
-│       └── tests/                      # Automated Test Suites
-│           └── test_suite.py           # Unit, Integration, Model, and Performance tests
-└── README.md                           # Main setup documentation
+├── run.py                      # Central CLI Launcher
+├── requirements.txt            # Local Python dependencies
+├── README.md                   # Main documentation
+├── .gitignore                  # Git exclusions
+│
+├── src/                        # Source codebase
+│   ├── config.py               # Central Path & Hyperparameter Config
+│   ├── inference.py            # Preprocessing & Inference Engine
+│   ├── realtime_webcam.py      # OpenCV Webcam Frame Loop
+│   ├── dashboard.py            # Streamlit Analytics Dashboard
+│   ├── model.py                # EfficientNetV2 Model Definition
+│   ├── train.py                # Two-Stage Model Trainer
+│   ├── evaluate.py             # Evaluation Reports Generator
+│   ├── fer2013_pipeline.py     # Data pipeline & augmentation layers
+│   ├── dataset_validator.py    # CSV schema and pixel validator
+│   ├── generate_mock_dataset.py# Utility to generate simulated data
+│   └── analytics.py            # Metrics, Valence & Attention logic
+│
+├── models/                     # Deep learning models
+│   ├── best_model.h5           # Converted Keras HDF5 model
+│   └── blaze_face_short_range.tflite # MediaPipe Face Detector
+│
+├── tests/                      # Testing frameworks
+│   └── test_suite.py           # Unit, Integration, and Latency tests
+│
+├── docs/                       # Guides and Technical Manuals
+│   ├── installation_guide.md   # Step-by-step local setup
+│   ├── troubleshooting_guide.md # Local execution debugging tips
+│   └── project_architecture_summary.md # System architecture details
+│
+└── evaluation_results/         # Evaluation dumps & curves (Git ignored)
 ```
 
 ---
 
-## ⚡ Quick Start Guide
+## 🛠️ Quick Start Guide
+
+For full installation details, see the [Installation Guide](docs/installation_guide.md).
 
 ### 1. Environment Setup
-Install all Python dependencies inside a virtual environment:
-
+Create a virtual environment and install all dependencies:
 ```bash
-# Clone/Open workspace and navigate to the ML package
-cd packages/ml-models
+python -m venv venv
+# Windows (PowerShell)
+.\venv\Scripts\Activate.ps1
+# macOS / Linux
+source venv/bin/activate
+
 pip install -r requirements.txt
 ```
 
-### 2. Run the Automated Test Suite
-Verify that all unit logic, validation throughput limits, and integration report builders pass by executing the complete test suite:
-
+### 2. Run the Test Suite
+Ensure everything is correctly set up by running the test suite:
 ```bash
-# Execute tests from workspace root (C:\Users\ASHIK\Desktop\emotion)
-python -m unittest packages/ml-models/tests/test_suite.py
+python -m unittest tests/test_suite.py
 ```
 
-### 3. Training & Fine-Tuning the Model
-1. Download the raw FER2013 dataset (CSV format) from Kaggle.
-2. Place the file at `data/fer2013.csv` (relative to project root).
-3. Trigger the two-stage training execution pipeline (Phase 1: Feature Extraction on frozen base, Phase 2: Fine-Tuning top base blocks via Cosine Decay scheduling):
-
+### 3. Generate Mock Data (Optional)
+Generate a mock FER2013 dataset if you want to test the data pipelines:
 ```bash
-python packages/ml-models/src/train.py
-```
-*Trained model binaries and weights will be saved to `packages/ml-models/models/` and `packages/ml-models/checkpoints/`.*
-
-### 4. Running Model Evaluation
-After training, compile performance metrics, list high-confidence prediction errors, and export the multi-panel evaluation metrics dashboard (`evaluation_dashboard.png`):
-
-```bash
-python packages/ml-models/src/evaluate.py
+python src/generate_mock_dataset.py
 ```
 
-### 5. Running Real-Time Webcam Inference (Console Frame View)
-Execute the real-time opencv console loop to see color-coded bounding boxes and active FPS stats rendered live:
+### 4. Running the Code Modes
 
-```bash
-python packages/ml-models/src/realtime_webcam.py
-```
-*Press the **`q`** key inside the active frame window to close the video capture.*
+Use `run.py` to launch the different system modules:
 
-### 6. Launching the Interactive Streamlit Dashboard
-Launch the dashboard to record sessions, track attention/distraction levels, plot timeline charts, and download serialized JSON session reports:
-
-```bash
-streamlit run packages/ml-models/src/dashboard.py
-```
+*   **Interactive Streamlit Dashboard**:
+    ```bash
+    python run.py dashboard
+    ```
+*   **High-Performance Webcam GUI (OpenCV Window)**:
+    ```bash
+    python run.py webcam
+    ```
+    *(Resizes dynamically. Press **`f`** to toggle fullscreen, and **`q`** or close the window to exit).*
+*   **Model Training & Fine-Tuning**:
+    ```bash
+    python run.py train
+    ```
+*   **Evaluation Report & Loss Curves generation**:
+    ```bash
+    python run.py evaluate
+    ```
 
 ---
 
 ## 🛡️ Privacy & Biometric Security
-EmotionSense AI enforces a strict **Zero-Image-Retention** policy. Raw images from webcam streams are processed purely in volatile local memory (RAM) and are discarded immediately after emotion classification. Only low-bandwidth, non-biometric numerical metadata (probabilities, pitch/yaw, and timestamps) are processed for session analytics.
+EmotionSense AI enforces a strict **Local Processing Policy**. Raw camera video streams are captured and processed purely in volatile local memory (RAM) and are discarded immediately after face alignment and emotion classification. No images are written to disk or sent to external servers.

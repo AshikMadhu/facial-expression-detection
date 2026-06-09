@@ -1,5 +1,5 @@
 import logging
-import os
+from pathlib import Path
 from typing import Tuple, Dict, Optional, List
 from dataclasses import dataclass, field
 import pandas as pd
@@ -46,7 +46,7 @@ class DatasetLoader:
 
     def load_raw_dataframe(self) -> pd.DataFrame:
         """Reads the CSV file containing the FER2013 data."""
-        if not os.path.exists(self.config.csv_path):
+        if not Path(self.config.csv_path).exists():
             raise FileNotFoundError(f"FER2013 CSV file not found at path: {self.config.csv_path}")
         
         logger.info(f"Loading FER2013 raw data from {self.config.csv_path}...")

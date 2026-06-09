@@ -1,14 +1,14 @@
 import sys
-import os
+from pathlib import Path
 import subprocess
 import importlib
 
 # Resolve absolute path of src/ directory
-src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "src"))
+src_dir = Path(__file__).resolve().parent / "src"
 
 # Programmatically append src/ to the system search path to resolve relative imports
-if src_dir not in sys.path:
-    sys.path.insert(0, src_dir)
+if str(src_dir) not in sys.path:
+    sys.path.insert(0, str(src_dir))
 
 def launch_module(module_name: str):
     """Dynamically imports and runs the specified module's main loop."""
@@ -32,12 +32,12 @@ def launch_module(module_name: str):
 
 def launch_dashboard():
     """Launches the Streamlit dashboard as a subprocess to prevent lifecycle conflicts."""
-    dashboard_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "app.py"))
-    if not os.path.exists(dashboard_path):
+    dashboard_path = Path(__file__).resolve().parent / "src" / "dashboard.py"
+    if not dashboard_path.exists():
         print(f"[Launcher] Error: Dashboard script not found at {dashboard_path}", file=sys.stderr)
         sys.exit(1)
         
-    cmd = [sys.executable, "-m", "streamlit", "run", dashboard_path]
+    cmd = [sys.executable, "-m", "streamlit", "run", str(dashboard_path)]
     # Pass along any additional arguments
     cmd.extend(sys.argv[2:])
     

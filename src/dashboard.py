@@ -1,6 +1,5 @@
 import time
 import json
-import os
 import streamlit as st
 import cv2
 import numpy as np
@@ -319,7 +318,7 @@ if st.session_state.session_running:
                 )
                 
                 # 1. Update Video Frame Display
-                video_placeholder.image(rgb_frame, channels="RGB", width="stretch")
+                video_placeholder.image(rgb_frame, channels="RGB", use_container_width=True)
                 
                 # 2. Update Dominant Emotion Card
                 em_color_map = {

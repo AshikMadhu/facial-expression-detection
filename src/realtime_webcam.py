@@ -43,8 +43,12 @@ class RealtimeEmotionDetector:
             logger.error(f"Failed to open video capture device with ID: {self.camera_id}")
             return
             
+        window_name = "EmotionSense AI - Real-time Webcam Recognition"
+        cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+        fullscreen = False
+        
         logger.info(f"Successfully connected to webcam. Starting display window...")
-        logger.info("Press 'q' key in the video frame window to exit.")
+        logger.info("Keyboard controls: [q] = Quit, [f] = Toggle Fullscreen")
         
         # Performance calculation helpers
         prev_time = time.perf_counter()
@@ -207,13 +211,24 @@ class RealtimeEmotionDetector:
                 )
     
                 # Show image frame
-                cv2.imshow("EmotionSense AI - Real-time Webcam Recognition", resized_frame)
+                cv2.imshow(window_name, resized_frame)
                 
-                # Listen for close conditions ('q' key or window closed)
+                # Check if window was closed via the GUI close (X) button
+                if cv2.getWindowProperty(window_name, cv2.WND_PROP_VISIBLE) < 1:
+                    logger.info("Webcam display window closed by user. Exiting...")
+                    break
+                    
+                # Listen for close conditions ('q' key, 'f' key for fullscreen)
                 key = cv2.waitKey(1) & 0xFF
                 if key == ord('q'):
                     logger.info("User requested termination. Exiting...")
                     break
+                elif key == ord('f'):
+                    fullscreen = not fullscreen
+                    if fullscreen:
+                        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+                    else:
+                        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_NORMAL)
         finally:
             # Cleanup video stream allocations
             cap.release()
