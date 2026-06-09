@@ -10,7 +10,7 @@ class TrainingConfig:
     csv_path: str = field(default_factory=lambda: os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "data", "fer2013.csv"))
     checkpoint_dir: str = field(default_factory=lambda: os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "checkpoints"))
     log_dir: str = field(default_factory=lambda: os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "logs"))
-    saved_model_path: str = field(default_factory=lambda: os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models", "best_model.keras"))
+    saved_model_path: str = field(default_factory=lambda: os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "models", "best_model.h5"))
     
     # Image Parameters
     raw_image_size: int = 48
