@@ -275,9 +275,6 @@ python -m unittest tests/test_suite.py
 
 ---
 
-## 👤 14. Contributors
-- **Ashik Madhu** - *Principal Developer* - [GitHub Profile](https://github.com/AshikMadhu)
-
 ---
 
 ## 📄 15. License
