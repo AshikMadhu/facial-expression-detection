@@ -1,6 +1,10 @@
 # Python
 __pycache__/
+**pycache**/
+.pytest_cache/
+.ipynb_checkpoints/
 *.pyc
+*.pyo
 
 # Local Python Runtime Distributions
 python311/

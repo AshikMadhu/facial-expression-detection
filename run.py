@@ -50,6 +50,54 @@ def launch_dashboard():
         print(f"[Launcher] Dashboard server exited with error code: {e.returncode}", file=sys.stderr)
         sys.exit(e.returncode)
 
+def validate_environment(mode: str):
+    """Validates model and data paths before executing the requested mode."""
+    project_root = Path(__file__).resolve().parent
+    models_dir = project_root / "models"
+    data_dir = project_root / "data"
+    
+    # 1. Create required output directories automatically
+    required_dirs = [
+        project_root / "evaluation_results",
+        project_root / "logs",
+        project_root / "checkpoints",
+        data_dir / "reports"
+    ]
+    for d in required_dirs:
+        d.mkdir(parents=True, exist_ok=True)
+        
+    # 2. Check model files if required by mode
+    model_modes = ["webcam", "dashboard", "evaluate"]
+    if mode in model_modes:
+        best_model = models_dir / "best_model.h5"
+        blazeface = models_dir / "blaze_face_short_range.tflite"
+        
+        missing = []
+        if not best_model.exists():
+            missing.append("models/best_model.h5 (trained CNN model weights)")
+        if not blazeface.exists():
+            missing.append("models/blaze_face_short_range.tflite (face detection model)")
+            
+        if missing:
+            print("[Startup Validator] ERROR: Critical model checkpoint file(s) missing:", file=sys.stderr)
+            for m in missing:
+                print(f"  - {m}", file=sys.stderr)
+            print("\nPlease ensure model checkpoints are downloaded/placed in 'models/' directory.", file=sys.stderr)
+            print("To train a new model from scratch, run: python run.py train", file=sys.stderr)
+            sys.exit(1)
+            
+    # 3. Check dataset file if required by mode
+    dataset_modes = ["train", "evaluate"]
+    if mode in dataset_modes:
+        fer_csv = data_dir / "fer2013.csv"
+        if not fer_csv.exists():
+            print("[Startup Validator] ERROR: FER2013 dataset file missing!", file=sys.stderr)
+            print(f"  Expected path: {fer_csv}", file=sys.stderr)
+            print("\nPlease place 'fer2013.csv' in the 'data/' folder to run training or evaluation.", file=sys.stderr)
+            sys.exit(1)
+            
+    print(f"[Startup Validator] Environment checks passed for mode '{mode}'.")
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("EmotionSense AI Production Launcher")
@@ -63,6 +111,9 @@ if __name__ == "__main__":
         sys.exit(1)
         
     mode = sys.argv[1]
+    
+    # Run environment checks first
+    validate_environment(mode)
     
     # Mapping modes to scripts/launchers
     if mode == "dashboard":
