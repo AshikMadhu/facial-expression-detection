@@ -365,18 +365,25 @@ def generate_pdf(handbook_md_path: Path, output_pdf_path: Path):
     print("[PDF Builder] PDF Generation complete!")
 
 if __name__ == "__main__":
-    project_root = Path(__file__).resolve().parent.parent
-    handbook_md = project_root / "emotionsense_ai_handbook.md"
-    
-    # Fallback to appdata brain folder if not in root
-    if not handbook_md.exists():
-        # Search parent directories
-        appdata_dir = Path("C:/Users/ASHIK/.gemini/antigravity/brain/c4895291-b019-4851-a6e8-453362b4edf8")
-        handbook_md = appdata_dir / "emotionsense_ai_handbook.md"
+    # Check if arguments are passed
+    if len(sys.argv) > 1:
+        handbook_md = Path(sys.argv[1]).resolve()
+    else:
+        project_root = Path(__file__).resolve().parent.parent
+        handbook_md = project_root / "emotionsense_ai_handbook.md"
         
+        # Fallback to appdata brain folder if not in root
+        if not handbook_md.exists():
+            appdata_dir = Path("C:/Users/ASHIK/.gemini/antigravity/brain/c4895291-b019-4851-a6e8-453362b4edf8")
+            handbook_md = appdata_dir / "emotionsense_ai_handbook.md"
+            
     if not handbook_md.exists():
-        print(f"Error: Could not locate handbook markdown file.")
+        print(f"Error: Could not locate input markdown file at {handbook_md}")
         sys.exit(1)
         
-    output_pdf = handbook_md.with_suffix(".pdf")
+    if len(sys.argv) > 2:
+        output_pdf = Path(sys.argv[2]).resolve()
+    else:
+        output_pdf = handbook_md.with_suffix(".pdf")
+        
     generate_pdf(handbook_md, output_pdf)
