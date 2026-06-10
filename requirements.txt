@@ -11,3 +11,5 @@ plotly==5.15.0
 tornado==6.5.6
 matplotlib==3.8.3
 seaborn==0.13.2
+reportlab==4.5.1
+fpdf2==2.8.7
